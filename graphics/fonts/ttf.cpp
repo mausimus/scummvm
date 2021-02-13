@@ -536,7 +536,7 @@ int TTFFont::getCharWidth(uint32 chr) const {
 
 int TTFFont::getKerningOffset(uint32 left, uint32 right) const {
 	if (!_hasKerning)
-		return 0;
+		return 1; // fix spacing in the font
 
 	assureCached(left);
 	assureCached(right);

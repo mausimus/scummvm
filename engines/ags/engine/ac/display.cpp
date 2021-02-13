@@ -629,7 +629,7 @@ void draw_button_background(Bitmap *ds, int xx1, int yy1, int xx2, int yy2, GUIM
 		else draw_color = ds->GetCompatibleColor(0); // black backrgnd behind picture
 
 		if (iep->BgColor > 0)
-			ds->FillRect(Rect(xx1, yy1, xx2, yy2), draw_color);
+			ds->FillRect(Rect(xx1, yy1, xx2 + 1, yy2 + 1), draw_color); // fix textbox bg gap
 
 		int leftRightWidth = game.SpriteInfos[get_but_pic(iep, 4)].Width;
 		int topBottomHeight = game.SpriteInfos[get_but_pic(iep, 6)].Height;

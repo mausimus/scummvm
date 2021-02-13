@@ -265,8 +265,8 @@ Bitmap *AdjustBitmapForUseWithDisplayMode(Bitmap *bitmap, bool has_alpha) {
 	// In 32-bit display mode, 32-bit bitmaps may require component conversion
 	// to match graphics driver expectation about pixel format.
 	// TODO: make GetCompatibleBitmapFormat tell this somehow
-#if defined (AGS_INVERTED_COLOR_ORDER)
-	if (sys_col_depth > 16 && bmp_col_depth == 32) {
+#ifndef AGS_INVERTED_COLOR_ORDER
+	if (/*sys_col_depth > 16 && */bmp_col_depth == 32) { // fix loading of ARGB assets
 		// Convert RGB to BGR.
 		new_bitmap = convert_32_to_32bgr(bitmap);
 	}

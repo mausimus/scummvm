@@ -229,9 +229,10 @@ void add_palette_if_needed(Graphics::ManagedSurface &surf) {
 		palette_to_rgb8(_current_palette, pal);
 
 		// Set transparent color for index 0
-		pal[0] = 0xff;
+		// fix backgrounds being transparent
+		/*pal[0] = 0xff;
 		pal[1] = 0;
-		pal[2] = 0xff;
+		pal[2] = 0xff;*/
 
 		surf.setPalette(pal, 0, PALETTE_COUNT);
 	}

@@ -40,7 +40,7 @@ void __my_setcolor(int *ctset, int newcol, int wantColDep) {
 		ctset[0] = newcol;
 	else if ((newcol >= 32) && (wantColDep > 16)) {
 		// true-color
-#ifdef SWAP_RB_HICOL_FOR_32to24_32
+#ifndef SWAP_RB_HICOL_FOR_32to24_32
 		ctset[0] = makeacol32(getb16(newcol), getg16(newcol), getr16(newcol), 255);
 #else
 		ctset[0] = makeacol32(getr16(newcol), getg16(newcol), getb16(newcol), 255);
@@ -53,8 +53,11 @@ void __my_setcolor(int *ctset, int newcol, int wantColDep) {
 		else
 			ctset[0] = newcol;
 	} else {
-		ctset[0] = makecol_depth(wantColDep, col_lookups[newcol] >> 16,
-			(col_lookups[newcol] >> 8) & 0x000ff, col_lookups[newcol] & 0x000ff);
+		/*ctset[0] = makecol_depth(wantColDep, col_lookups[newcol] >> 16,
+			(col_lookups[newcol] >> 8) & 0x000ff, col_lookups[newcol] & 0x000ff);*/
+// fix converting stored colors to ABGR (not ARGB)
+		ctset[0] = makecol_depth(wantColDep, col_lookups[newcol] & 0x000ff,
+			(col_lookups[newcol] >> 8) & 0x000ff, col_lookups[newcol] >> 16);
 
 		// in case it's used on an alpha-channel sprite, make sure it's visible
 		if (wantColDep > 16)
